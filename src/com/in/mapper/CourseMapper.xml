@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.in.mapper.CourseMapper" >
+  <resultMap id="BaseResultMap" type="com.in.pojo.Course" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="totalClass" property="totalclass" jdbcType="INTEGER" />
+    <result column="currentClass" property="currentclass" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="endTime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="startTime" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="classTeacher" property="classteacher" jdbcType="INTEGER" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="minNum" property="minnum" jdbcType="INTEGER" />
+    <result column="maxNum" property="maxnum" jdbcType="INTEGER" />
+    <result column="describe" property="describe" jdbcType="VARCHAR" />
+    <result column="courseNo" property="courseno" jdbcType="INTEGER" />
+    <result column="grade" property="grade" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, subject, level, location, price, totalClass, currentClass, status, endTime, startTime, 
+    classTeacher, latitude, longitude, minNum, maxNum, describe, courseNo, grade
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.in.pojo.CourseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from course
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from course
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.in.pojo.CourseExample" >
+    delete from course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.in.pojo.Course" >
+    insert into course (id, subject, level, 
+      location, price, totalClass, 
+      currentClass, status, endTime, 
+      startTime, classTeacher, latitude, 
+      longitude, minNum, maxNum, 
+      describe, courseNo, grade
+      )
+    values (#{id,jdbcType=INTEGER}, #{subject,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, 
+      #{location,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, #{totalclass,jdbcType=INTEGER}, 
+      #{currentclass,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{endtime,jdbcType=TIMESTAMP}, 
+      #{starttime,jdbcType=TIMESTAMP}, #{classteacher,jdbcType=INTEGER}, #{latitude,jdbcType=VARCHAR}, 
+      #{longitude,jdbcType=VARCHAR}, #{minnum,jdbcType=INTEGER}, #{maxnum,jdbcType=INTEGER}, 
+      #{describe,jdbcType=VARCHAR}, #{courseno,jdbcType=INTEGER}, #{grade,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.in.pojo.Course" >
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="totalclass != null" >
+        totalClass,
+      </if>
+      <if test="currentclass != null" >
+        currentClass,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="endtime != null" >
+        endTime,
+      </if>
+      <if test="starttime != null" >
+        startTime,
+      </if>
+      <if test="classteacher != null" >
+        classTeacher,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="minnum != null" >
+        minNum,
+      </if>
+      <if test="maxnum != null" >
+        maxNum,
+      </if>
+      <if test="describe != null" >
+        describe,
+      </if>
+      <if test="courseno != null" >
+        courseNo,
+      </if>
+      <if test="grade != null" >
+        grade,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="totalclass != null" >
+        #{totalclass,jdbcType=INTEGER},
+      </if>
+      <if test="currentclass != null" >
+        #{currentclass,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="classteacher != null" >
+        #{classteacher,jdbcType=INTEGER},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="minnum != null" >
+        #{minnum,jdbcType=INTEGER},
+      </if>
+      <if test="maxnum != null" >
+        #{maxnum,jdbcType=INTEGER},
+      </if>
+      <if test="describe != null" >
+        #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="courseno != null" >
+        #{courseno,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.in.pojo.CourseExample" resultType="java.lang.Integer" >
+    select count(*) from course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update course
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.subject != null" >
+        subject = #{record.subject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=VARCHAR},
+      </if>
+      <if test="record.location != null" >
+        location = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DOUBLE},
+      </if>
+      <if test="record.totalclass != null" >
+        totalClass = #{record.totalclass,jdbcType=INTEGER},
+      </if>
+      <if test="record.currentclass != null" >
+        currentClass = #{record.currentclass,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.endtime != null" >
+        endTime = #{record.endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.starttime != null" >
+        startTime = #{record.starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.classteacher != null" >
+        classTeacher = #{record.classteacher,jdbcType=INTEGER},
+      </if>
+      <if test="record.latitude != null" >
+        latitude = #{record.latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.longitude != null" >
+        longitude = #{record.longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.minnum != null" >
+        minNum = #{record.minnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxnum != null" >
+        maxNum = #{record.maxnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.describe != null" >
+        describe = #{record.describe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseno != null" >
+        courseNo = #{record.courseno,jdbcType=INTEGER},
+      </if>
+      <if test="record.grade != null" >
+        grade = #{record.grade,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update course
+    set id = #{record.id,jdbcType=INTEGER},
+      subject = #{record.subject,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=VARCHAR},
+      location = #{record.location,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DOUBLE},
+      totalClass = #{record.totalclass,jdbcType=INTEGER},
+      currentClass = #{record.currentclass,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      endTime = #{record.endtime,jdbcType=TIMESTAMP},
+      startTime = #{record.starttime,jdbcType=TIMESTAMP},
+      classTeacher = #{record.classteacher,jdbcType=INTEGER},
+      latitude = #{record.latitude,jdbcType=VARCHAR},
+      longitude = #{record.longitude,jdbcType=VARCHAR},
+      minNum = #{record.minnum,jdbcType=INTEGER},
+      maxNum = #{record.maxnum,jdbcType=INTEGER},
+      describe = #{record.describe,jdbcType=VARCHAR},
+      courseNo = #{record.courseno,jdbcType=INTEGER},
+      grade = #{record.grade,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.in.pojo.Course" >
+    update course
+    <set >
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="totalclass != null" >
+        totalClass = #{totalclass,jdbcType=INTEGER},
+      </if>
+      <if test="currentclass != null" >
+        currentClass = #{currentclass,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="endtime != null" >
+        endTime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="starttime != null" >
+        startTime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="classteacher != null" >
+        classTeacher = #{classteacher,jdbcType=INTEGER},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="minnum != null" >
+        minNum = #{minnum,jdbcType=INTEGER},
+      </if>
+      <if test="maxnum != null" >
+        maxNum = #{maxnum,jdbcType=INTEGER},
+      </if>
+      <if test="describe != null" >
+        describe = #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="courseno != null" >
+        courseNo = #{courseno,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.in.pojo.Course" >
+    update course
+    set subject = #{subject,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      totalClass = #{totalclass,jdbcType=INTEGER},
+      currentClass = #{currentclass,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      endTime = #{endtime,jdbcType=TIMESTAMP},
+      startTime = #{starttime,jdbcType=TIMESTAMP},
+      classTeacher = #{classteacher,jdbcType=INTEGER},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      minNum = #{minnum,jdbcType=INTEGER},
+      maxNum = #{maxnum,jdbcType=INTEGER},
+      describe = #{describe,jdbcType=VARCHAR},
+      courseNo = #{courseno,jdbcType=INTEGER},
+      grade = #{grade,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

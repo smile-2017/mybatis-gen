@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.in.mapper.TbUserStuMapper" >
+  <resultMap id="BaseResultMap" type="com.in.pojo.TbUserStu" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sname" property="sname" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="grade" property="grade" jdbcType="VARCHAR" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="balance" property="balance" jdbcType="DOUBLE" />
+    <result column="IDCard" property="idcard" jdbcType="VARCHAR" />
+    <result column="introduceCode" property="introducecode" jdbcType="VARCHAR" />
+    <result column="headUrl" property="headurl" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.in.pojo.TbUserStu" extends="BaseResultMap" >
+    <result column="message" property="message" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, sname, sex, grade, school, phone, password, balance, IDCard, introduceCode, headUrl, 
+    email
+  </sql>
+  <sql id="Blob_Column_List" >
+    message
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.in.pojo.TbUserStuExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_user_stu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.in.pojo.TbUserStuExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_user_stu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_user_stu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_user_stu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.in.pojo.TbUserStuExample" >
+    delete from tb_user_stu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.in.pojo.TbUserStu" >
+    insert into tb_user_stu (id, sname, sex, 
+      grade, school, phone, 
+      password, balance, IDCard, 
+      introduceCode, headUrl, email, 
+      message)
+    values (#{id,jdbcType=INTEGER}, #{sname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{grade,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{balance,jdbcType=DOUBLE}, #{idcard,jdbcType=VARCHAR}, 
+      #{introducecode,jdbcType=VARCHAR}, #{headurl,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{message,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.in.pojo.TbUserStu" >
+    insert into tb_user_stu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sname != null" >
+        sname,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="grade != null" >
+        grade,
+      </if>
+      <if test="school != null" >
+        school,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="idcard != null" >
+        IDCard,
+      </if>
+      <if test="introducecode != null" >
+        introduceCode,
+      </if>
+      <if test="headurl != null" >
+        headUrl,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sname != null" >
+        #{sname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="idcard != null" >
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="introducecode != null" >
+        #{introducecode,jdbcType=VARCHAR},
+      </if>
+      <if test="headurl != null" >
+        #{headurl,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.in.pojo.TbUserStuExample" resultType="java.lang.Integer" >
+    select count(*) from tb_user_stu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_user_stu
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.sname != null" >
+        sname = #{record.sname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.grade != null" >
+        grade = #{record.grade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.school != null" >
+        school = #{record.school,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.balance != null" >
+        balance = #{record.balance,jdbcType=DOUBLE},
+      </if>
+      <if test="record.idcard != null" >
+        IDCard = #{record.idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introducecode != null" >
+        introduceCode = #{record.introducecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headurl != null" >
+        headUrl = #{record.headurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.message != null" >
+        message = #{record.message,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tb_user_stu
+    set id = #{record.id,jdbcType=INTEGER},
+      sname = #{record.sname,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      grade = #{record.grade,jdbcType=VARCHAR},
+      school = #{record.school,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      balance = #{record.balance,jdbcType=DOUBLE},
+      IDCard = #{record.idcard,jdbcType=VARCHAR},
+      introduceCode = #{record.introducecode,jdbcType=VARCHAR},
+      headUrl = #{record.headurl,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      message = #{record.message,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_user_stu
+    set id = #{record.id,jdbcType=INTEGER},
+      sname = #{record.sname,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      grade = #{record.grade,jdbcType=VARCHAR},
+      school = #{record.school,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      balance = #{record.balance,jdbcType=DOUBLE},
+      IDCard = #{record.idcard,jdbcType=VARCHAR},
+      introduceCode = #{record.introducecode,jdbcType=VARCHAR},
+      headUrl = #{record.headurl,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.in.pojo.TbUserStu" >
+    update tb_user_stu
+    <set >
+      <if test="sname != null" >
+        sname = #{sname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="idcard != null" >
+        IDCard = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="introducecode != null" >
+        introduceCode = #{introducecode,jdbcType=VARCHAR},
+      </if>
+      <if test="headurl != null" >
+        headUrl = #{headurl,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.in.pojo.TbUserStu" >
+    update tb_user_stu
+    set sname = #{sname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=DOUBLE},
+      IDCard = #{idcard,jdbcType=VARCHAR},
+      introduceCode = #{introducecode,jdbcType=VARCHAR},
+      headUrl = #{headurl,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      message = #{message,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.in.pojo.TbUserStu" >
+    update tb_user_stu
+    set sname = #{sname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=DOUBLE},
+      IDCard = #{idcard,jdbcType=VARCHAR},
+      introduceCode = #{introducecode,jdbcType=VARCHAR},
+      headUrl = #{headurl,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
